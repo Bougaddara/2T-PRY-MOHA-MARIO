@@ -1,0 +1,7 @@
+type marca {
+  id: ID
+  cifm: String
+  nombre: String
+  carpormarca: [car]
+  status: StatusEnum
+}

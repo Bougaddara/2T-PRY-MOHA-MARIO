@@ -1,0 +1,18 @@
+mutation Mutation($car: carInput!) {
+  addcar(car: $car) {
+    message
+    datacar {
+      codcoche
+      nombre
+      modelo
+      Precio
+      Combustible
+      descripcion
+      marchas
+      Ano
+      Kilometros
+      imagen
+      status
+    }
+  }
+}

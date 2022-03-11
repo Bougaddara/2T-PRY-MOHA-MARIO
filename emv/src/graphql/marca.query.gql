@@ -1,0 +1,6 @@
+query MarcaList {
+  marcaList {
+    nombre
+    cifm
+  }
+}

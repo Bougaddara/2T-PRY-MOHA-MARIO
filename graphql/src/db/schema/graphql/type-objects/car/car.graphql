@@ -1,0 +1,16 @@
+type car {
+  id: ID
+  codcoche: String
+  nombre: String
+  modelo: String
+  precio: Int
+  Combustible: String
+  descripcion: String
+  Ano: String
+  Kilometros: String 
+  imagen: String
+  cifCA: String
+  cifm: String
+  marchas: String
+  Status: StatusEnum
+}

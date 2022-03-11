@@ -1,0 +1,16 @@
+input carInput {
+  id: ID
+  codcoche: String
+  nombre: String
+  modelo: String
+  precio: String
+  Combustible: String
+  descripcion: String
+  Ano: String
+  Kilometros: String
+  imagen: String
+  cifCA: String
+  cifm: String
+  marchas: String
+  status: StatusEnum 
+}
