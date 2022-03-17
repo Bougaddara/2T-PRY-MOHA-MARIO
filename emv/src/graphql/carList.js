@@ -1,20 +1,20 @@
 
 import gql from 'graphql-tag'
 
-
-export const carList = gql`
+export const carListQuery = gql`
 query  carList  {
-    carList {
-      codcoche
-      imagen
-      nombre
-      modelo
-      Precio
-      marchas
-      Kilometros
-      Ano
-      descripcion
-  
-    }
-   
-  }`
+  carList {
+    codcoche
+    imagen
+    nombre
+    modelo
+    precio
+    Kilometros
+    marchas
+    Ano
+    descripcion
+    
+
+  }
+ 
+}`

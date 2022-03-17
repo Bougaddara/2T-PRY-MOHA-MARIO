@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 //import car from '../views/car.vue'
 import Detalles from '../components/Detalles.vue'
 import Oferta from '../components/Oferta.vue'
+import marca from '../components/marca.vue'
+
 
 
 
@@ -23,6 +25,12 @@ const routes = [
     path: '/Detalles/:codcoche',
     name: 'Detalles',
     component: Detalles,
+    props: true
+  },
+  {
+    path: '/marca/:cifm',
+    name: 'marca',
+    component: marca,
     props: true
   },
  

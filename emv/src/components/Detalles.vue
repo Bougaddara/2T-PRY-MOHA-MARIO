@@ -19,9 +19,9 @@
        <img :src="result.carId.datacar.imagen" alt="" >
        <div class="precio">{{result.carId.datacar.precio}} €</div>
        </div> 
-
+      
        <div class="nombre" >
-        <h1> {{result.carId.datacar.nombre}} {{result.carId.datacar.modelo}}</h1>
+        <h1> {{marca}} {{result.carId.datacar.nombre}} {{result.carId.datacar.modelo}}</h1>
        </div> 
 
         <div  >
@@ -30,18 +30,23 @@
         </div> 
 
         <div class="info"> 
-          <nav class="logo"  ><img src="../../src/assets/engine.png" alt=""></nav>
-          <nav class="data"> {{result.carId.datacar.Kilometros}} Km</nav>
-          <nav class="logo"  ><span class="material-icons-outlined">keyboard_option_key </span></nav>
+          <nav class="logo"  ><img src="https://img.icons8.com/ios-glyphs/30/000000/car--v1.png"/></nav>
+          <nav class="data"> {{result.carId.datacar.Ano}} </nav>
+          <nav class="logo"  ><img src="https://img.icons8.com/material-rounded/100/000000/gearbox-selector.png"/></nav>
           <nav class="data"> {{result.carId.datacar.marchas}}</nav>
-          <nav class="logo"> <span class="material-icons-outlined">add_road </span> </nav>
+          <nav class="logo"  ><img src="https://img.icons8.com/android/30/000000/gas-pump.png"/></nav>
+          <nav class="data"> {{result.carId.datacar.Combustible}} </nav>
+          <nav class="logo"> <img src="https://img.icons8.com/ios-glyphs/30/000000/road.png"/> </nav>
           <nav class="data">{{result.carId.datacar.Kilometros}} Km</nav>
         </div>
         <div class="descripcion"> 
            <h1>Descripcion</h1>
            <p>{{result.carId.datacar.descripcion}} </p>
         </div>
+        <!-- <button class="btn btn-primary" type="button">Button</button> -->
+       
   	</section>
+    <foter />
 
 
   </div> 
@@ -59,10 +64,14 @@ import gql from "graphql-tag";
 import { showcar }from "../graphql/showcar";
 
 
+import foter from './esc/foter.vue'
+
+
 export default {
   name: "Detalles",
   components: {
     Detalles,
+    foter
     
   },
 
@@ -73,6 +82,10 @@ export default {
     const { result } = useQuery( showcar,
      () => ({ codcoche: props.codcoche }) );
     console.log(result);
+    
+
+   
+    
     return {
       result
     };
@@ -179,7 +192,7 @@ section {
   height: 50vh;
   background-size: 100%;
   background-position: 0;
-  /*top: 100vh;*/
+  /*top: 100vh; */
  
 }
 div.precio {
@@ -259,6 +272,8 @@ nav.video{
 
 
 /*********************************************************************************************** */
+
+
 .nombre  {
  width: 100%;
   height: 100px;

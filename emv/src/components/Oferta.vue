@@ -65,8 +65,9 @@
               </div>
             </form>
              </div>
-
+            <foter />
 </div>
+
 </template>
 
 <script>
@@ -74,13 +75,18 @@ import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import { useQuery, useResult } from '@vue/apollo-composable'
 import { ref } from 'vue'
-import marcaListQuery from '../graphql/marca.query.gql'
+import { marcaListQuery } from "../graphql/marca";
+import foter from './esc/foter.vue'
 
 
-import { addcar }from "../graphql/addcar";
-import { carList }from "../graphql/carList";
+// import { addcar }from "../graphql/addcar";
+
 
 export default {
+
+  components: {
+    foter
+  },
 
   setup () {
     const car = {
@@ -95,21 +101,21 @@ export default {
     }
 
     const { mutate: addcar } = useMutation(gql`
-          mutation Mutation($car: carInput!) {
-          addcar(car: $car) {
-            datacar {
-              codcoche
-              nombre
-              modelo
-              precio
-              Combustible
-              descripcion
-              Ano
-              Kilometros
-              imagen
-            }
-          }
-        }`,
+            mutation Mutation($car: carInput!) {
+              addcar(car: $car) {
+                datacar {
+                  codcoche
+                  nombre
+                  modelo
+                  precio
+                  Combustible
+                  descripcion
+                  Ano
+                  Kilometros
+                  imagen
+                }
+              }
+            }`,
             () => ({ variables: {
                     car: {
                           nombre: nombre.value,
@@ -126,7 +132,7 @@ export default {
              const { result } = useQuery(marcaListQuery)
               console.log(result)
   
-       const marcaList = useResult(result, null,  data => data.marcaList)
+            const marcaList = useResult(result, null,  data => data.marcaList)
             console.log(car);  
              return {
                 car,
@@ -197,8 +203,7 @@ body {
 
 header {
    background: black;
-   filter:alpha(opacity=70);
-  -moz-opacity:.70;opacity:.70;
+ 
   width: 100%;
   padding: 1em;
   font-size: 140%;
@@ -255,6 +260,9 @@ div.cardata {
   div.cardata label { 
     text-align: left;
     width: 20% ;
+    /* background: gray ;
+    border: 1px solid #ccc;
+    border-radius: 7px; */
   }
   div.cardata input {
     width: 70% ;

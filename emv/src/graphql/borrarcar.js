@@ -1,9 +1,8 @@
 import gql from 'graphql-tag'
-
-
 export const addcar = gql`
-mutation Mutation($car: carInput!) {
-  addcar(car: $car) {
+mutation Mutation($codcoche: ID!) {
+  deletecar(codcoche: $codcoche) {
+    message
     datacar {
       codcoche
       nombre
@@ -14,6 +13,7 @@ mutation Mutation($car: carInput!) {
       Ano
       Kilometros
       imagen
+      marchas
     }
   }
 }`

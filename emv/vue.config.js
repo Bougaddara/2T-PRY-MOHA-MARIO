@@ -15,6 +15,12 @@ module.exports = {
   transpileDependencies: true
 };
 
+module.exports = {
+  transpileDependencies: [
+    "@splidejs"
+  ]
+};
+
 
 link: [
   {

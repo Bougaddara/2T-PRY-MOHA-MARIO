@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 
-export const showcar = gql`
-uery MarcaId($cifm: ID!) {
+export const showmarca = gql`
+query MarcaId($cifm: ID!) {
   marcaId(cifm: $cifm) {
     datamar {
       cifm

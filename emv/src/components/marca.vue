@@ -1,7 +1,7 @@
 <template>
 
 
-  <div class="car">
+  <div class="ma">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined"  >
 
 
@@ -13,34 +13,23 @@
   		</nav>
       <router-view />
 	</header>
-	 <section  >   
-       <div class="namecar" > 
-         
-       <img :src="result.carId.datacar.imagen" alt="" >
-       <div class="precio">{{result.carId.datacar.precio}} €</div>
-       </div> 
+	 <section>   
 
-       <div class="nombre" >
-        <h1> {{result.carId.datacar.nombre}} {{result.carId.datacar.modelo}}</h1>
-       </div> 
 
-        <div  >
-         <nav class="fotos"><a href="">  <font-awesome-icon icon="home"/>  View Photos </a> </nav>
-         <nav class="video"> <a href=""> Video Review </a> </nav>
-        </div> 
 
-        <div class="info"> 
-          <nav class="logo"  ><img src="../../src/assets/engine.png" alt=""></nav>
-          <nav class="data"> {{result.carId.datacar.Kilometros}} Km</nav>
-          <nav class="logo"  ><span class="material-icons-outlined">keyboard_option_key </span></nav>
-          <nav class="data"> {{result.carId.datacar.marchas}}</nav>
-          <nav class="logo"> <span class="material-icons-outlined">add_road </span> </nav>
-          <nav class="data">{{result.carId.datacar.Kilometros}} Km</nav>
-        </div>
-        <div class="descripcion"> 
-           <h1>Descripcion</h1>
-           <p>{{result.carId.datacar.descripcion}} </p>
-        </div>
+
+         <div class="car" v-for="marca in result.marcaId.datamar.carpormarca" :key="marca.cifm"  >
+
+              <router-link Class="mascar" :to="{name: 'Detalles', params: {codcoche: marca.codcoche}}">
+              <div class="namecar"> <img :src="marca.imagen" alt=""></div>
+              <nav class="info" > {{marca.nombre}} </nav> 
+              <nav class="precio" >  {{marca.precio}}€ </nav>  
+              <nav class="ano" > • {{marca.Ano}} • {{marca.Kilometros}} Km </nav>   
+              </router-link>
+
+          
+
+          </div> 
   	</section>
 
 
@@ -52,26 +41,48 @@
 
 <script >
 
-import Detalles from "@/components/Detalles";
+import marca from "@/components/marca";
 import { useQuery, useResult } from "@vue/apollo-composable";
 import gql from "graphql-tag";
 
-import { showcar }from "../graphql/showcar";
+ //import { showmarca}from "../graphql/showmarca";
 
 
 export default {
-  name: "Detalles",
+  name: "marca",
   components: {
-    Detalles,
+    marca,
     
   },
+    props: ["codcoche"],
 
 
-  props: ["codcoche"],
+
+  props: ["cifm"],
 
   setup(props) {
-    const { result } = useQuery( showcar,
-     () => ({ codcoche: props.codcoche }) );
+    const { result } = useQuery( gql`
+      query MarcaId($cifm: ID!) {
+        marcaId(cifm: $cifm) {
+          datamar {
+            cifm
+            nombre
+            carpormarca {
+              codcoche
+              nombre
+              modelo
+              precio
+              Combustible
+              descripcion
+              Ano
+              Kilometros
+              imagen
+              marchas
+            }
+          }
+        }
+      }`,
+     () => ({ cifm: props.cifm }) );
     console.log(result);
     return {
       result
@@ -125,15 +136,10 @@ nav a {
   display: inline-block;
   outline: none;
   text-decoration: none;
-  /* opacity: .8; */
   padding: 0 100px;
   color: white;
-  /* transition: opacity .2s ease-in-out; */
 }
- /* nav a:hover, 
-nav a:focus {
-  opacity: 15;
-}  */
+
 
 
 
@@ -147,15 +153,14 @@ div.namecar img {
 
 header {
     overflow: hidden;
-    position: fixed;
+    /* position: fixed; */
 
    background: black;
-   filter:alpha(opacity=70);
-  -moz-opacity:.80;opacity:.80;
+  
   width: 100%;
   padding: 1em;
   font-size: 140%;
-  position: absolute;
+  /* position: absolute; */
   /*top: 100vh;*/
   left: 0;
   transition: opacity .2s ease-in-out;
@@ -182,161 +187,56 @@ section {
   /*top: 100vh;*/
  
 }
-div.precio {
-  
-  color: white;
-  width: 400px ;
-  height: 80px;
-  font-size: 300%;
-  border-radius: 15px  15px 0px 0px ;
-  /* line-height: 1; */
-  /* padding-top: calc( 10vh - 60pt); */
-  font-weight: 700;
-  position: absolute;
-  top: 73.3vh;
-  left: 60%;
-  background: black;
-  opacity:.85;  
-}
- nav.fotos{
-   color: white;
-  width: 200px ;
-  height: 45px;
-  font-size: 20px;
-  border-radius: 10px  10px 10px 10px ;
-  /* line-height: 1; */
-  /* padding-top: calc( 10vh - 60pt); */
-  font-weight: 200;
-  position: absolute;
-  top: 77vh;
-  left: 5%;
-  background: black;
-  font-size: inherit;
-  padding: 0px;
-} 
-
-/* section nav{
-     filter:alpha(opacity=20);
-    -moz-opacity:.80;opacity:.30;
-
-} */
-
-
- section nav.fotos a{
-   color: white;
-   width: 50% ;
-   text-align: center;
-   padding: 0px;
-   margin-top: 10px;
+div .car {
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius:10px;
+    float: left;
+    width: 32.5%;
+    height: auto;
+    
 }
 
-nav.video{
-   color: white;
-  width: 200px ;
-  height: 45px;
-  font-size: 20px;
-  border-radius: 10px  10px 10px 10px ;
-  /* line-height: 1; */
-  /* padding-top: calc( 10vh - 60pt); */
-  font-weight: 200;
-  position: absolute;
-  top: 77vh;
-  left: 23%;
-  background: black;
-  font-size: inherit;
-  padding: 0px;
-} 
+div .car a {
+  color:black;
+  text-decoration: none;
 
+  }
+div .info {
+    font-size: 20pt;
+    padding-left: 10px;
+    float: left;
+    font-weight: bold;  
+    margin-bottom: 30px;
+}
 
- section nav.video a{
-   color: white;
-   width: 50% ;
-   text-align: center;
-   padding: 0px;
-   margin-top: 10px;
+div .precio {
+        font-weight: bold;  
+    font-size: 20pt;
+    padding-left: 70%;
+        
+}
+div .ano {
+    font-size: 15pt;
+    float: right;
+    padding-right: 10px ;
+    
 }
 
 
-
-/*********************************************************************************************** */
-.nombre  {
- width: 100%;
-  height: 100px;
+div.namecar img {
+    border-radius:  10px 10px 0px 0px ;
+    overflow:hidden;
+    backface-visibility: hidden;
+    width: 100%;
+    height: 350px;
 }
-div.nombre  h1 {
-
-  margin-left:5% ;
-  float: left;
-	color: black;
-  font-size: 400%;
-  line-height: 1;
-  padding-top: calc(13vh - 50pt);
-  display: block;
-  font-weight: 700;
-}
-/************************************************ */
- section div.info  {
-  /* background: blue ; */
-  height: 25% ;
-  text-align: center;
-  width: 70%;
-  margin: 0 5% 1% 5%  ;
-  padding: 0 20px;
-  border: 1px solid #777;
-  border-radius: 7px ;
-
+div.namecar img:hover {
+     backface-visibility: hidden;
+        transform: scale(1.03,1.03);
+        opacity: 2
 }
 
-.info nav {
-  color: black ;
-  font-size: 180%;
-  float: left ;
-  margin-top: 1.5% ;
-  padding: 0;
-  /* background: green ; */
-  text-align: center;
-
-}
-.info nav img {
-  width: 45px ;
-  height: 50px ;
-
-}
-
- .info nav span {
-  font-size:45px;
-} 
-.data  {
-  /* font-size:35px; */
-  margin-right: 5%;
-}
-.logo {
-  margin-right: 7px;
-}
-
-
-
-
-
-
-/***********************************************************************/ 
-
-.descripcion {
-  width: 70% ;
-  margin-left:5% ;
-  text-align: left;
-
-
-
-}
-.descripcion p {
-  color: black ;
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.5;
-  text-align: left;
-
-}
 
 
 
